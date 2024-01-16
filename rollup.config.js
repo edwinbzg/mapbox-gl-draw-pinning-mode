@@ -7,7 +7,7 @@ export default {
   input: "src/index.js",
   output: {
     file: "./dist/mapbox-gl-draw-pinning-mode.js",
-    format: "umd",
+    format: "iife",
     name: "mapboxGlDrawPinningMode",
     globals: {
       "@mapbox/mapbox-gl-draw/src/modes/simple_select":
