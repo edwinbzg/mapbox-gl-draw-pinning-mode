@@ -121,7 +121,7 @@ pinMode.fireUpdate = function (newF) {
   this.map.fire(events.UPDATE, {
     action: 'Pinning',
     features: newF
-});
+  });
 };
 
 pinMode.onMouseDown = function (state, e) {
@@ -139,6 +139,16 @@ pinMode.update = function (state, e) {
     const f = state.draw.get(id);
     f.geometry.coordinates[0][vIdx] = movingPoint.coordinates;
     newFeatures.push(f)
+    // Fix  
+    var firstCoordinate = f.geometry.coordinates[0][0]
+    var lastCoordinate = f.geometry.coordinates[0][f.geometry.coordinates[0].length - 1]
+
+    if (firstCoordinate[0] == lastCoordinate[0] && firstCoordinate[1] == lastCoordinate[1]) {
+      state.draw.add(f);
+    } else {
+      f.geometry.coordinates[0][f.geometry.coordinates[0].length - 1] = firstCoordinate
+      state.draw.add(f);
+    }
     state.draw.add(f);
   });
   this.fireUpdate(newFeatures)
